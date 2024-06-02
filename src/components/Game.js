@@ -30,8 +30,8 @@ const Game = () => {
     const navigate = useNavigate();
 
     const handleUserChoice = (choice) => {
-        // const compChoice = Math.floor(Math.random() * 7);
-        const compChoice = 1;
+        const compChoice = Math.floor(Math.random() * 7);
+        // const compChoice = 1;
         setUserChoice(choice);
         setComputerChoice(compChoice);
         updateOvers();
