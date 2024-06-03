@@ -231,7 +231,7 @@ const Game = () => {
                 </div> */}
                 {/* <div className='bg-gray-800 h-[90%] w-[1px]'></div> */}
                 <div className="flex flex-col mr-8 w-1/2 items-center">
-                    <h2 className="text-lg font-semibold mb-2">User ({turn === 'player' ? 'Batting' : 'Bowling'}) {gameOver.toString()}</h2>
+                    <h2 className="text-lg font-semibold mb-2">User ({turn === 'player' ? 'Batting' : 'Bowling'})</h2>
                     <div className="mb-2 flex justify-center items-center">
                         {[0, 1, 2, 3, 4, 5, 6].map((num) => (
                             <button disabled={btndisable} key={num} onClick={() => handleUserChoice(num)} className={`shadow cursor-pointer text-white font-bold py-2 px-4 rounded mr-2 ${btndisable ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-900 hover:bg-blue-8  00'}`}>
