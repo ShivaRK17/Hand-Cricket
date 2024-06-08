@@ -145,7 +145,7 @@ const Game = () => {
                 setBtndisable(false);
             }, 2000);
 
-            if (userChoice !== '' && computerChoice !== '') {
+            if (userChoice !== '' && computerChoice !== '' && !gameOver) {
                 let newCurrUserRuns = currUserRuns;
                 let newCurrCompRuns = currCompRuns;
 
@@ -230,12 +230,12 @@ const Game = () => {
                     <p className="text-lg">Computer Choice: {computerChoice}</p>
                 </div> */}
                 {/* <div className='bg-gray-800 h-[90%] w-[1px]'></div> */}
-                <div className="flex flex-col mr-8 w-1/2 items-center">
+                <div className="flex flex-col mr-8 w-full items-center">
                     <h2 className="text-lg font-semibold mb-2">User ({turn === 'player' ? 'Batting' : 'Bowling'})</h2>
-                    <div className="mb-2 flex justify-center items-center">
+                    <div className="mb-2 w-full flex flex-wrap justify-center items-center">
                         {[0, 1, 2, 3, 4, 5, 6].map((num) => (
-                            <button disabled={btndisable} key={num} onClick={() => handleUserChoice(num)} className={`shadow cursor-pointer text-white font-bold py-2 px-4 rounded mr-2 ${btndisable ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-900 hover:bg-blue-8  00'}`}>
-                                <img className='md:w-10 md:h-10 w-5 h-5' src={require(`../assets/${num}.png`)} alt={''} />
+                            <button disabled={btndisable} key={num} onClick={() => handleUserChoice(num)} className={`shadow cursor-pointer text-white font-bold py-2 px-4 rounded m-2 ${btndisable ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-900 hover:bg-blue-8  00'}`}>
+                                <img className=' md:h-10 h-10' src={require(`../assets/${num}.png`)} alt={''} />
                                 <p>{num}</p>
                             </button>
                         ))}
@@ -248,7 +248,7 @@ const Game = () => {
                 <div className='flex flex-col w-1/2 items-center'>
                     <h2 className='font-bold m-3'>Computer</h2>
                     <div className="flex items-center justify-center m-2 ">
-                        {computerChoice !== '' && <img className='md:w-10 md:h-10 w-5 h-5' src={require(`../assets/${computerChoice}.png`)} alt={''} />}
+                        {computerChoice !== '' && <img className='md:w-10 md:h-10 h-10' src={require(`../assets/${computerChoice}.png`)} alt={''} />}
                         <p className="text-white text-lg md:text-3xl font-bold z-10 relative">{currBall === 'Out' ? 'OUT' : computerChoice}</p>
                     </div>
                 </div>
@@ -256,26 +256,26 @@ const Game = () => {
                 <div className='flex flex-col w-1/2 items-center'>
                     <h2 className='font-bold m-3'>User</h2>
                     <div className=" flex items-center  justify-center m-2">
-                        {userChoice !== '' && <img className='md:w-10 md:h-10 w-5 h-5' src={require(`../assets/${userChoice}.png`)} alt={''} />}
+                        {userChoice !== '' && <img className='md:w-10 md:h-10 h-10' src={require(`../assets/${userChoice}.png`)} alt={''} />}
                         <p className="text-white text-lg md:text-3xl font-bold z-10 relative">{currBall === 'Out' ? 'OUT' : userChoice}</p>
                     </div>
                 </div>
             </div>}
             <div className="container bg-green-900 text-white w-full p-3 flex md:flex-row flex-col md:justify-between">
-                <div className='flex items-center my-2 md:my-0  '>
+                <div className='flex items-center m-2 my-5'>
                     <h2 className='text-lg md:text-3xl mx-3'>User {turn === 'player' ? '🏏' : '⚾'}</h2>
                     <h2 className='text-lg md:text-3xl mx-3 bg-blue-400 p-1 px-3 rounded flex items-center justify-center'>{currUserRuns}/{ucurrPlayer}</h2>
                     <div className='flex flex-col md:mx-4'>
                         {/* {<h2 className='text-base'>{uscorecard[ucurrPlayer].name}{'*'}({uscorecard[ucurrPlayer].score})</h2>} */}
                         {ucurrPlayer < 10 ? turn === 'player' && <>
-                            <h2 className='text-base'>{uscorecard[ucurrPlayers[0]].name}{'*'}{'  '}{uscorecard[ucurrPlayers[0]].score}({uscorecard[ucurrPlayers[0]].balls})</h2>
+                            <h2 className='text-sm md:text-base'>{uscorecard[ucurrPlayers[0]].name}{'*'}{'  '}{uscorecard[ucurrPlayers[0]].score}({uscorecard[ucurrPlayers[0]].balls})</h2>
                             <hr />
                             <h3 className='text-sm'>{uscorecard[ucurrPlayers[1]].name}{' '}{uscorecard[ucurrPlayers[1]].score}({uscorecard[ucurrPlayers[1]].balls})</h3>
                         </> : <></>}
                         {/* <h3 className='text-sm'>{ucurrPlayer <= 11 && uscorecard[ucurrPlayer + 1].name}</h3> */}
                     </div>
                 </div>
-                <div className='flex items-center flex-row-reverse'>
+                <div className='flex items-center flex-row-reverse my-5'>
                     <h2 className='text-lg md:text-3xl mx-3'>Computer {turn === 'computer' ? '🏏' : '⚾'}</h2>
                     <h2 className='text-lg md:text-3xl mx-3 bg-blue-400 p-1 px-3 rounded flex items-center justify-center'>{currCompRuns}/{ccurrPlayer}</h2>
                     <div className='flex flex-col md:mx-4'>
@@ -293,8 +293,8 @@ const Game = () => {
                     <h2 className='mx-3 px-3 font-semibold text-lg'>Overs: {covers[0]}.{covers[1]}</h2>}
                 {turn === 'player' && first === 'computer' && gameOver===false && <h5>You need {currCompRuns - currUserRuns + 1} runs to win</h5>}
                 {turn === 'computer' && first === 'player' && gameOver===false && <h5>Computer need {currUserRuns - currCompRuns + 1} runs to win</h5>}
-                {gameOver && currUserRuns>currCompRuns && <h2 className='uppercase text-xl font-semibold bg-green-500 drop-shadow-xl p-1 rounded'>You Won!!!</h2>}
-                {gameOver && currCompRuns>currUserRuns && <h2 className='uppercase text-xl font-semibold bg-red-500 drop-shadow-xl p-1 rounded'>Computer Won!!!</h2>}
+                {gameOver && currUserRuns>currCompRuns && <h2 className='uppercase text-xl font-semibold bg-green-500 drop-shadow-xl p-1 rounded'>You Won {first==='player'?`by ${currUserRuns-currCompRuns} runs`:''}!!!</h2>}
+                {gameOver && currCompRuns>currUserRuns && <h2 className='uppercase text-xl font-semibold bg-red-500 drop-shadow-xl p-1 rounded'>Computer Won {first==='computer'?`by ${currCompRuns-currUserRuns} runs`:''}!!!</h2>}
                 {gameOver && currCompRuns===currUserRuns && <h2 className='uppercase text-xl font-semibold bg-green-500 drop-shadow-xl p-1 rounded'>Tie Match</h2>}
                 {turn === 'player' ?
                     <div className='flex items-center'>
